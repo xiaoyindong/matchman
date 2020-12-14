@@ -31,6 +31,13 @@ module.exports = {
                 loader: 'file-loader?limit=8192&name=images/[name].[ext]'
             },
             {
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader'
+                },
+                exclude: /node_modules/
+            },
+            {
                 test: /\.html$/,
                 exclude: /node_modules/,
                 loader: 'html-loader'
