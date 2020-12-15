@@ -3,6 +3,9 @@
  * 等级
  * 元素
  */
+
+import './person.less';
+
 class Person {
     constructor(name, level = 1) {
         this.name = name;
@@ -13,7 +16,15 @@ class Person {
     render() {
         this.ele = document.createElement('div');
         this.ele.id = `p_${Math.random()}`;
-        console.log(this.ele);
+        this.ele.className = 'person_item';
+
+        this.ele.innerHTML = `<div><div>123</div></div>`;
+        
+        document.body.append(this.ele);
+    }
+
+    getEle() {
+        return this.ele;
     }
 }
 
