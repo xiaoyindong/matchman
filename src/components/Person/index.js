@@ -16,6 +16,8 @@ import actionLeft2 from '../../images/fowradR-left.gif';
 import actionRight2 from '../../images/fowradR-right.gif';
 import actionLeft3 from '../../images/lianzhao-left.gif';
 import actionRight3 from '../../images/lianzhao-right.gif';
+import actionLeft4 from '../../images/anqi-left.gif';
+import actionRight4 from '../../images/anqi-right.gif';
 
 import './style.less';
 
@@ -29,14 +31,34 @@ class Person {
     }
 
     render() {
+        // 人物住轮廓
         this.ele = document.createElement('div');
         this.ele.id = `p_${Math.random()}`;
         this.ele.className = 'person_item';
+        // 人物贴图
         this.img = document.createElement('img');
         this.img.className = 'person_images_item';
         this.img.src = defaultLeft;
+        // 人物信息
+        this.personInfo = document.createElement('div');
+        this.personInfo.className = 'person_info';
+        this.renderInfo();
+        // 插入
+        this.ele.append(this.personInfo);
         this.ele.append(this.img);
         this.container.append(this.ele);
+    }
+
+    renderInfo() {
+        
+        this.personInfo.innerHTML = `
+        <div class="person_level">L:${this.person.level}</div>
+        <div class="person_name">${this.person.name}</div>
+        <div class="person_blood">${this.person.blood || 100}</div>
+        <div class="person_blood_box">
+            <div class="person_blood_value"></div>
+        </div>
+        `
     }
 
     action(directs) {
@@ -49,6 +71,14 @@ class Person {
             this.img.src = runLeft;
         }
 
+        if (directs.includes('up')) {
+            this.img.src = this.dir === 1 ? runRight : runLeft;
+        }
+        
+        if (directs.includes('down')) {
+            this.img.src = this.dir === 1 ? runRight : runLeft;
+        }
+
         if (directs.includes('j')) {
             this.img.src =  this.dir === 1 ? actionRight1 : actionLeft1;
         }
@@ -57,6 +87,9 @@ class Person {
         }
         if (directs.includes('l')) {
             this.img.src =  this.dir === 1 ? actionRight3 : actionLeft3;
+        }
+        if (directs.includes('p')) {
+            this.img.src =  this.dir === 1 ? actionRight4 : actionLeft4;
         }
         if (directs.includes('esc')) {
             this.img.src =  this.dir === 1 ? dieRight : dieLeft;

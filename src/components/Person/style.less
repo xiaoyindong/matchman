@@ -1,4 +1,6 @@
 .person_item {
+    font-family: '微软雅黑';
+    font-weight: normal;
     position: absolute;
     z-index: 10;
     top: 0;
@@ -13,7 +15,56 @@
         width: 260px;
         height: 190px;
         position: relative;
-        left: 0px;
-        top: 0px
+        left: 0;
+        top: 0;
+    }
+    .person_info {
+        position: relative;
+        font-weight: lighter;
+        width: 120px;
+        z-index: 100;
+        top: 40px;
+        left: 60px;
+        transform: scale(0.8);
+    }
+    .person_name_user{
+        color: #1890ff;
+    }
+    .person_name {
+        font-size: 12px;
+        position: absolute;
+        left: 0;
+        width: 110px;
+        text-align: center;
+        top: 0;
+        color: #eee;
+    }
+    .person_level {
+        position: absolute;
+        font-size: 12px;
+        left: 0;
+        top: 0;
+        color: #eee;
+    }
+    .person_blood {
+        position: absolute;
+        font-size: 12px;
+        right: 10px;
+        top: 0;
+        color: #eee;
+    }
+    .person_blood_box {
+        position: absolute;
+        width: 110px;
+        height: 4px;
+        top: 18px;
+        left: 0;
+        border: 1px solid #eee;
+        overflow: hidden;
+        .person_blood_value {
+            width: 100%;
+            height: 5px;
+            background-color: red;
+        }
     }
 }

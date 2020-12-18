@@ -14,6 +14,7 @@ const direct = { // 有效按键
     74: 'j',
     75: 'k',
     76: 'l',
+    80: 'p',
     13: 'enter',
     27: 'esc'
 }
@@ -22,14 +23,31 @@ const keys = []; // 当前按键
 
 // 初始化窗口
 const App = new Games();
+// 窗口对象
 const client = App.getEle();
 // 初始化场景
 const scene = new Scene(bgi, client);
-// 初始化人物
+// 初始化主人公，初始化在窗口
 const person = new Person({
     name: '隐冬',
+    blood: 500,
     level: 1,
 }, client)
+
+
+// 地图对象
+const map = scene.getEle();
+// 初始化机器人，要初始化在地图上
+[1, 2, 3].forEach(item => {
+    const ai1 = new Person({
+        name: `机器人${item}`,
+        level: 1,
+        blood: 100,
+        ai: true
+    }, map)
+})
+
+
 
 // 监听按键
 window.addEventListener('keydown', (e) => {
