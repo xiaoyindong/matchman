@@ -38,16 +38,23 @@ const person = new Person({
 // 地图对象
 const map = scene.getEle();
 // 初始化机器人，要初始化在地图上
-[1, 2, 3].forEach(item => {
-    const ai1 = new Person({
-        name: `机器人${item}`,
+const robot = [];
+for(let i = 1; i <= 5; i++) {
+    robot.push({id: i});
+}
+robot.forEach(item => {
+    item.person = new Person({
+        name: `机器人${item.id}`,
         level: 1,
         blood: 100,
-        ai: true
-    }, map)
-})
+        ai: true,
+        translateX: Math.random() * 1000 + 100,
+        translateY: Math.random() * 500 + 80,
+        translateZ: item.id,
+    }, map);
+});
 
-
+// console.log(robot);
 
 // 监听按键
 window.addEventListener('keydown', (e) => {

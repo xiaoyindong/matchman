@@ -9,7 +9,7 @@ class Scene {
         this.translateY = -240;
         this.speedX = 0;
         this.speedY = 0;
-        this.diff = 6;
+        this.diff = 5;
         this.moving = false;
 
         this.screenWidth = this.container.clientWidth;
@@ -29,6 +29,7 @@ class Scene {
     move(directs) {
         this.speedX = 0;
         this.speedY = 0;
+
         if (directs.includes('right')) {
             this.speedX = -this.diff;
         } else if (directs.includes('left')) {
@@ -39,6 +40,10 @@ class Scene {
             this.speedY = -this.diff;
         } else if (directs.includes('up')) {
             this.speedY = this.diff;
+        }
+        if (directs.includes('j') || directs.includes('k') || directs.includes('l') || directs.includes('p')) {
+            this.speedX = 0;
+            this.speedY = 0;
         }
         if (directs.length > 0 && !this.moving) {
             this.animation();
@@ -68,7 +73,7 @@ class Scene {
             this.moving = false;
         }
     }
-    
+
     getEle() {
         return this.ele;
     }
