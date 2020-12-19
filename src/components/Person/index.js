@@ -43,11 +43,11 @@ const behavior = [{
     },
     {
         value: 'l',
-        time: 2.5,
+        time: 3,
     },
     {
         value: 'p',
-        time: 4,
+        time: 3,
     }
 ];
 
@@ -65,6 +65,7 @@ class Person {
         this.speedX = 0;
         this.speedY = 0;
         this.diff = 5;
+
         this.moving = false;
 
         this.screenWidth = this.container.clientWidth;
@@ -72,14 +73,19 @@ class Person {
         this.eleWidth = this.ele.offsetWidth;
         this.eleHeight = this.ele.offsetHeight;
 
+        this.diestatus = false;
+
         if (this.person.ai) {
             this.stop = false;
             this.ele.style.transform = `translate3d(${this.translateX}px, ${this.translateY}px, ${this.translateZ}px)`;
-            this.$ai();
+            requestAnimationFrame(this.$ai.bind(this))
         }
     }
 
     $ai() {
+        if (this.diestatus || !this.person.ai) {
+            return;
+        }
         const random = Math.floor(Math.random() * behavior.length);
         const action = behavior[random];
         this.action([action.value]);
@@ -111,10 +117,13 @@ class Person {
     }
 
     animation() { // move
-        if (this.stop) {
+        if (this.diestatus) {
+            return;
+        }
+        if (this.stop && this.person.ai) {
             this.speedX = 0;
             this.speedY = 0;
-            this.$ai();
+            requestAnimationFrame(this.$ai.bind(this))
             return;
         }
         if (this.speedX || this.speedY) {
@@ -140,7 +149,7 @@ class Person {
             requestAnimationFrame(this.animation.bind(this));
         } else {
             this.stop = true;
-            this.$ai();
+            requestAnimationFrame(this.$ai.bind(this))
         }
     }
 
@@ -211,6 +220,14 @@ class Person {
         if (!directs.length) {
             this.img.src = this.dir === 1 ? defaultRight : defaultLeft;
         }
+    }
+
+    makedie() {
+        this.img.src = this.dir === 1 ? dieRight : dieLeft;
+        this.diestatus = true;
+        setTimeout(() => {
+            this.container.removeChild(this.ele);
+        },3000);
     }
 
     getEle() {

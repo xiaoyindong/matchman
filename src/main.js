@@ -39,10 +39,10 @@ const person = new Person({
 const map = scene.getEle();
 // 初始化机器人，要初始化在地图上
 const robot = [];
-for(let i = 1; i <= 5; i++) {
+for(let i = 1; i <= 5; i++) { // 5个
     robot.push({id: i});
 }
-robot.forEach(item => {
+robot.forEach(item => { // 每个机器人
     item.person = new Person({
         name: `机器人${item.id}`,
         level: 1,
@@ -54,15 +54,16 @@ robot.forEach(item => {
     }, map);
 });
 
-// console.log(robot);
-
 // 监听按键
 window.addEventListener('keydown', (e) => {
     const key = direct[e.keyCode];
     if (!keys.includes(key) && key) {
         keys.push(key);
-        scene.move(keys);
-        person.action(keys);
+        scene.move(keys); // 背景移动
+        if (keys.includes('p')) { // 全局技能
+            App.effect(robot);
+        }
+        person.action(keys); // 主人物操作
     }
 })
 // 监听按键
@@ -72,6 +73,9 @@ window.addEventListener('keyup', (e) => {
     if (idx >= 0 && key) {
         keys.splice(idx, 1);
         scene.move(keys);
+        if (!keys.includes('p')) {
+            App.cancel(robot);
+        }
         person.action(keys);
     }
 })
